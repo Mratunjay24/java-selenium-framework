@@ -59,4 +59,4 @@ Add CI/CD support (Jenkins, GitHub Actions)
 Mratunjay Sharma
 
 📜 License
-This project is licensed under the MIT License - feel free to use and modify.
+Feel free to use and modify.
