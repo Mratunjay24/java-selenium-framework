@@ -10,6 +10,28 @@ java-selenium-framework
 │── pom.xml # Maven configuration file
 │── .gitignore # Files to be ignored by Git
 
+current project structure
+src
+ ├─ main
+ │   └─ java
+ │       ├─ org/base
+ │       │   ├─ BaseClass.java
+ │       │   └─ DriverManager.java
+ │       ├─ pagesLayer
+ │       │   └─ AllProductPage.java
+ │       └─ Utils
+ │           └─ ConfigReader.java
+ └─ test
+     ├─ java
+     │   └─ testCases
+     │       ├─ TestAllProductDetailsFromAPI.java
+     │       ├─ TestAllProductDetailsFromUI.java
+     │       └─ TestIntegrationProductDetails.java
+     └─ resources
+         ├─ chromedriver.exe
+         ├─ config.properties
+         └─ test.properties
+
 ## ⚙️ Prerequisites
 
 - [Java JDK 8+](https://www.oracle.com/java/technologies/downloads/)
