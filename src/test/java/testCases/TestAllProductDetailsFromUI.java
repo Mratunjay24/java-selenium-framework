@@ -1,36 +1,34 @@
 package testCases;
+import org.base.BaseClass;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import pagesLayer.allProductPage;
+import pagesLayer.AllProductPage;
 
 public class
-TestCase1 extends allProductPage {
+TestAllProductDetailsFromUI extends BaseClass {
+    String text = "";
+    AllProductPage allProductPage;
 
-	@BeforeTest
-	public void startTest() {
-		setUrl();
-	}
-	
-	@Test
+    @Override @BeforeClass
+    public void setUp() {
+        super.setUp();
+        allProductPage = new AllProductPage();
+    }
+
+    @Test
 	public void verifyTitle() {
 
-		String titleName = getTheTitle();
+		String titleName = allProductPage.getPageTitle();
         System.out.println("The title of the page is: " + titleName);
 	}
     @Test
     public void verifyText() {
-        String text = getTheText("//h2[text()='All Products']");
-        System.out.println("The text on the page is: " + text);
-        text = getTheText("//body[1]/section[2]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/a[1]");
-        System.out.println("The text on the page is: " + text);
-        text = getTheText("//body[1]/section[2]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/a[1]/preceding-sibling::p[1]");
-        System.out.println("The text on the page is: " + text);
+        text = allProductPage.getTheText();
         Assert.assertEquals(text, "Blue Top");
     }
-	@AfterTest
-	public void endTest() {
 
-		// closeBrowser();
-	}
-
+    @Override @AfterClass
+    public void tearDown() {
+        super.tearDown();
+    }
 }
