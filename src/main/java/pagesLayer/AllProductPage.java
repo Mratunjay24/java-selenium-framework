@@ -1,27 +1,30 @@
 package pagesLayer;
 
-import org.base.DriverManager;
+import Utils.TestLocatorsReader;
+import org.base.PredefinedActions;
 import org.openqa.selenium.WebDriver;
 
-public class AllProductPage {
-    String allProduct = "//h2[text()='All Products']";
-    String firstProductID = "//body[1]/section[2]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/a[1]";
-    String firstProductName= "//body[1]/section[2]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/a[1]/preceding-sibling::p[1]";
+public class AllProductPage extends PredefinedActions {
+    String allProductsTitle = TestLocatorsReader.get("allProductsTitle");
+    String firstProductID = TestLocatorsReader.get("firstProductID");;
+    String firstProductName= TestLocatorsReader.get("firstProductName");;
 
     private WebDriver driver;
 
-    public AllProductPage() {
-        this.driver = DriverManager.getDriver();
+    public AllProductPage(WebDriver driver) {
+        this.driver = driver;
     }
 
+
+
     // Page Actions
-    public String getPageTitle() {
-        return driver.findElement(org.openqa.selenium.By.xpath(allProduct)).getText();
+    public String getPageTitle(WebDriver driver)
+    {
+        return PredefinedActions.getElement(driver,"xpath",allProductsTitle,false).getText();
+
     }
     public String getTheText() {
         return driver.findElement(org.openqa.selenium.By.xpath(firstProductName)).getText();
 
     }
-
-
 }

@@ -26,6 +26,7 @@ public class BaseClass {
 
     // Protected getter so child test classes can access driver
     protected WebDriver getDriver() {
+
         return DriverManager.getDriver();
     }
 }
