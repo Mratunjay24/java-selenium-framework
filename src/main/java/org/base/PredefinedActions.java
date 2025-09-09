@@ -1,11 +1,12 @@
 package org.base;
-import org.base.InvalidSelectorExpection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,93 +14,58 @@ import java.util.List;
 public class PredefinedActions {
 
 
-	protected static WebDriverWait wait;
-    protected static WebDriver driver;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
 
-	protected static WebElement getElement(WebDriver driver, String locatorType, String locatorValue, boolean isWaitRequired) {
-		WebElement element = null;
-		switch (locatorType.toUpperCase()) {
-		case "XPATH":
-			if (isWaitRequired)
-				element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locatorValue)));
-			else
-				element = driver.findElement(By.xpath(locatorValue));
-			break;
-		case "ID":
-			if (isWaitRequired)
-				element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(locatorValue)));
-			else
-				element = driver.findElement(By.id(locatorValue));
-			break;
-		case "CLASSNAME":
-			if (isWaitRequired)
-				element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(locatorValue)));
-			else
-				element = driver.findElement(By.className(locatorValue));
-		case "CSSSELECTOR":
-			if (isWaitRequired)
-				element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(locatorValue)));
-			else
-				element = driver.findElement(By.cssSelector(locatorValue));
-		case "NAME":
-			if (isWaitRequired)
-				element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name(locatorValue)));
-			else
-				element = driver.findElement(By.name(locatorValue));
-		case "TAGNAME":
-			if (isWaitRequired)
-				element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.tagName(locatorValue)));
-			else
-				element = driver.findElement(By.tagName(locatorValue));
-		case "LINKTEXT":
-			if (isWaitRequired)
-				element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(locatorValue)));
-			else
-				element = driver.findElement(By.linkText(locatorValue));
-		case "PARTIALLINKTEXT":
-			if (isWaitRequired)
-				element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText(locatorValue)));
-			else
-				element = driver.findElement(By.partialLinkText(locatorValue));
-		default:
-            throw new org.base.InvalidSelectorExpection(
-					"User Should Select values from XPATH, CSSSELECTOR, ID, NAME,TAGNAME, LINKTEXT, PARTIALLINKTEXT,CLASSNAME,TAGNAME");
-		}
-		return element;
-	}
-	
-	protected static void scrolldownPage() {
-		
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("window.scrollBy(0,350)", "");
-		
-	}
+    // Instance constructor (driver-aware actions)
+    public PredefinedActions(WebDriver driver, long timeoutSeconds) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+    }
 
-	protected static void scrollToElement(WebElement element) {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView(true)", element);
-	}
+    // ==========================
+    // ✅ Instance methods (need driver)
+    // ==========================
+    public WebElement getElement(By locator, boolean isWaitRequired) {
+        return isWaitRequired
+                ? wait.until(ExpectedConditions.visibilityOfElementLocated(locator))
+                : driver.findElement(locator);
+    }
 
-	protected static void clickOnElement(WebElement element) {
-		if (!element.isDisplayed())
-			scrollToElement(element);
-		wait.until(ExpectedConditions.elementToBeClickable(element));
-		element.click();
-	}
+    public void click(WebElement element) {
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+        element.click();
+    }
 
-	protected static void sendkeysOnElement(WebElement element, String data) {
-		if (!(element.isEnabled() && element.isDisplayed()))
-			scrollToElement(element);
-		element.sendKeys(data);
+    public void type(WebElement element, String text) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+        element.clear();
+        element.sendKeys(text);
+    }
 
-	}
+    public List<String> getTextOfAllElements(By locator) {
+        List<WebElement> elements = driver.findElements(locator);
+        List<String> texts = new ArrayList<>();
+        for (WebElement e : elements) texts.add(e.getText());
+        return texts;
+    }
 
-	protected List<String> getTextOfAllElements(String locator) {
-		List<WebElement> widgetsListElements = driver.findElements(By.xpath(locator));
-		List<String> widgetsList = new ArrayList<String>();
-		for (WebElement widgetElement : widgetsListElements) {
-			widgetsList.add(widgetElement.getText());
-		}
-		return widgetsList;
-	}
+    // ==========================
+    // ✅ Static methods (stateless helpers)
+    // ==========================
+    public static void sleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public static String getJsReadyState(WebDriver driver) {
+        return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString();
+    }
+
+    public static void scrollBy(WebDriver driver, int px) {
+        ((JavascriptExecutor) driver).executeScript("window.scrollBy(0," + px + ")");
+    }
 }

@@ -1,37 +1,29 @@
 package testCases;
-import org.base.BaseClass;
-import org.openqa.selenium.WebDriver;
+import basePackage.BaseClass;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pagesLayer.AllProductPage;
 
 public class
 TestAllProductDetailsFromUI extends BaseClass {
-    String text = "";
-    AllProductPage allProductPage;
-    WebDriver driver;
 
-    @Override @BeforeClass
+    AllProductPage allProductPage;
+
+    @BeforeMethod
     public void setUp() {
-        super.setUp();
-        driver = getDriver();
-        allProductPage = new AllProductPage(driver);
+        allProductPage = new AllProductPage(getDriver());
     }
 
     @Test
 	public void verifyTitle() {
 
-		String titleName = allProductPage.getPageTitle(driver);
+		String titleName = allProductPage.getPageTitle();
         System.out.println("The title of the page is: " + titleName);
 	}
     @Test
-    public void verifyText() {
-        text = allProductPage.getTheText();
+    public String verifyText() {
+        String text = allProductPage.getTheText();
         Assert.assertEquals(text, "Blue Top");
-    }
-
-    @Override @AfterClass
-    public void tearDown() {
-        super.tearDown();
+        return text;
     }
 }

@@ -1,11 +1,7 @@
 package testCases;
-
-import org.base.BaseClass;
+import basePackage.BaseClass;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
-
-
 
 public class TestIntegrationProductDetails extends BaseClass {
 
@@ -18,8 +14,7 @@ public class TestIntegrationProductDetails extends BaseClass {
     public void completeTest() {
         TestAllProductDetailsFromUI uiTest = new TestAllProductDetailsFromUI();
         uiTest.setUp();
-        uiTest.verifyText();
-        text1 = uiTest.text;
+        text1 = uiTest.verifyText();
         System.out.println("Text from UI: " + text1);
         TestAllProductDetailsFromAPI apiTest = new TestAllProductDetailsFromAPI();
         apiTest.getRequest();
@@ -29,8 +24,4 @@ public class TestIntegrationProductDetails extends BaseClass {
         System.out.println("Integration test completed.");
     }
 
-    @Override @AfterClass
-    public void tearDown() {
-        super.tearDown();
-    }
 }
