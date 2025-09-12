@@ -11,6 +11,7 @@ TestAllProductDetailsFromUI extends BaseClass {
 
     @BeforeMethod
     public void setUp() {
+        super.setUp();
         allProductPage = new AllProductPage(getDriver());
     }
 

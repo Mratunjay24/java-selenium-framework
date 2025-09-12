@@ -1,4 +1,5 @@
 package org.base;
+import Utils.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -17,10 +18,13 @@ public class PredefinedActions {
     private final WebDriver driver;
     private final WebDriverWait wait;
 
-    // Instance constructor (driver-aware actions)
     public PredefinedActions(WebDriver driver, long timeoutSeconds) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+    }
+    // Instance constructor (driver-aware actions)
+    public PredefinedActions(WebDriver driver) {
+        this(driver, Long.parseLong(ConfigReader.get("timeout","10")));
     }
 
     // ==========================

@@ -15,7 +15,7 @@ public class AllProductPage {
 
     public AllProductPage(WebDriver driver) {
         this.driver = driver;
-        this.actions = new PredefinedActions(driver,10);
+        this.actions = new PredefinedActions(driver);
     }
 
 
