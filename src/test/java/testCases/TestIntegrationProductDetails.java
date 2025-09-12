@@ -13,7 +13,6 @@ public class TestIntegrationProductDetails extends BaseClass {
     @Test
     public void completeTest() {
         TestAllProductDetailsFromUI uiTest = new TestAllProductDetailsFromUI();
-        uiTest.setUp();
         text1 = uiTest.verifyText();
         System.out.println("Text from UI: " + text1);
         TestAllProductDetailsFromAPI apiTest = new TestAllProductDetailsFromAPI();

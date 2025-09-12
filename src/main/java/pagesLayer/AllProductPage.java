@@ -10,11 +10,11 @@ public class AllProductPage {
     private final By allProductsTID = By.xpath(TestLocatorsReader.get("firstProductID"));
     private final By firstProductName = By.xpath(TestLocatorsReader.get("firstProductName"));
 
-    private final WebDriver driver;
+
     private final PredefinedActions actions;
 
     public AllProductPage(WebDriver driver) {
-        this.driver = driver;
+
         this.actions = new PredefinedActions(driver);
     }
 
@@ -30,5 +30,11 @@ public class AllProductPage {
     public String getTheText() {
         return actions.getElement(allProductsTitle,false).getText();
 
+    }
+    public String getFirstProductID() {
+        return actions.getElement(allProductsTID,false).getText();
+    }
+    public String getFirstProductName() {
+        return actions.getElement(firstProductName, false).getText();
     }
 }

@@ -1,5 +1,6 @@
 package testCases;
 import basePackage.BaseClass;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pagesLayer.AllProductPage;
@@ -10,9 +11,10 @@ TestAllProductDetailsFromUI extends BaseClass {
     AllProductPage allProductPage;
 
     @BeforeMethod
-    public void setUp() {
-        super.setUp();
-        allProductPage = new AllProductPage(getDriver());
+    public void setUpPage() {
+        WebDriver driver;
+         driver = super.setUp();
+        allProductPage = new AllProductPage(driver);
     }
 
     @Test

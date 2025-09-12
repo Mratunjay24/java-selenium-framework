@@ -10,7 +10,7 @@ public class BaseClass {
 
 
     @BeforeMethod(alwaysRun = true)
-    public void setUp() {
+    public WebDriver setUp() {
         // Read browser from config.properties or system property
         String browser = ConfigReader.get("browser", "chrome");
         String baseUrl = ConfigReader.get("baseUrl", "https://automationexercise.com/");
@@ -19,20 +19,15 @@ public class BaseClass {
         // Create driver and register with ThreadLocal manager
         WebDriver driver = DriverFactory.createDriver(browser);
 
-
         // Navigate to baseUrl if present
         if (!baseUrl.isEmpty()) {
-            DriverFactory.getDriver().get(baseUrl);
+            driver.get(baseUrl);
         }
+        return driver;
     }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
         DriverFactory.quitDriver();
-    }
-
-    // Protected getter so child test classes can access driver
-    protected WebDriver getDriver() {
-        return DriverManager.getDriver();
     }
 }

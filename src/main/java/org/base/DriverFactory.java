@@ -3,7 +3,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import io.github.bonigarcia.wdm.WebDriverManager;
 
     /**
      * Thread-safe DriverFactory (ThreadLocal).
@@ -15,11 +14,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
         private DriverFactory() {}
 
 
-        private static final ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
+
 
         public static WebDriver createDriver(String browser) {
-            WebDriver driver;
 
+            WebDriver driver;
             switch (browser.toLowerCase()) {
                 case "chrome":
                     driver = new ChromeDriver();
@@ -35,24 +34,18 @@ import io.github.bonigarcia.wdm.WebDriverManager;
             }
             // Store in ThreadLocal for parallel safety
             DriverManager.setDriver(driver);
+            DriverManager.getDriver();
             driver.manage().window().maximize();
             return driver;
-
-
-        }
-
-        // Get current thread's driver
-        public static WebDriver getDriver() {
-            return tlDriver.get();
         }
         // Quit driver
         public static void quitDriver() {
-            WebDriver drv = getDriver();
+            WebDriver drv = DriverManager.getDriver();
             if (drv != null) {
                 try {
                     drv.quit();
                 } catch (Exception ignored) {}
-                tlDriver.remove();
+                DriverManager.quitDriver();
             }
         }
     }
