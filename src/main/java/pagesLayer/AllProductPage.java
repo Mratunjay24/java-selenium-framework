@@ -12,9 +12,10 @@ public class AllProductPage {
 
 
     private final PredefinedActions actions;
+    private final WebDriver driver;
 
     public AllProductPage(WebDriver driver) {
-
+        this.driver = driver;
         this.actions = new PredefinedActions(driver);
     }
 

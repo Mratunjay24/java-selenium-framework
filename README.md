@@ -12,25 +12,14 @@ java-selenium-framework
 
 current project structure
 src
- ├─ main
- │   └─ java
- │       ├─ org/base
- │       │   ├─ BaseClass.java
- │       │   └─ DriverManager.java
- │       ├─ pagesLayer
- │       │   └─ AllProductPage.java
- │       └─ Utils
- │           └─ ConfigReader.java
- └─ test
-     ├─ java
-     │   └─ testCases
-     │       ├─ TestAllProductDetailsFromAPI.java
-     │       ├─ TestAllProductDetailsFromUI.java
-     │       └─ TestIntegrationProductDetails.java
-     └─ resources
-         ├─ chromedriver.exe
-         ├─ config.properties
-         └─ test.properties
+ src/
+├── main/java/
+│   ├── org/base/              → BaseClass, DriverManager
+│   ├── pagesLayer/            → AllProductPage
+│   └── Utils/                 → ConfigReader
+├── test/java/
+│   └── testCases/             → Three test classes
+└── test/resources/            → Config files, chromedriver
 
 ## ⚙️ Prerequisites
 
