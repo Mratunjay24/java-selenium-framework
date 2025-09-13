@@ -1,5 +1,6 @@
 package testCases;
 import basePackage.BaseClass;
+import org.base.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -20,6 +21,7 @@ TestAllProductDetailsFromUI extends BaseClass {
     @Test
 	public void verifyTitle() {
 		String titleName = allProductPage.getPageTitle();
+        Assert.assertEquals(titleName, "ALL PRODUCTS");
         System.out.println("The title of the page is: " + titleName);
 	}
 
@@ -27,5 +29,10 @@ TestAllProductDetailsFromUI extends BaseClass {
     public void verifyText() {
         String text = allProductPage.getTheText();
         Assert.assertEquals(text, "Blue Top");
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void tearDown() {
+        DriverManager.quitDriver();
     }
 }
