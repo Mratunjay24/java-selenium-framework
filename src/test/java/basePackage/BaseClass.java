@@ -29,8 +29,14 @@ public class BaseClass {
         return driver;
     }
 
+//    public WebDriver getDriver() {
+//        return DriverManager.getDriver();
+//    }
+
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
         DriverManager.quitDriver();
     }
+
+
 }

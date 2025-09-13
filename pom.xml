@@ -13,6 +13,18 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <build>
+        <plugins>
+            <!-- Your existing plugins like maven-compiler-plugin, surefire-plugin -->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.11.2</version>
+            </plugin>
+        </plugins>
+    </build>
+
+
     <dependencies>
         <!-- Selenium Dependency -->
         <dependency>
@@ -55,5 +67,19 @@
             <version>7.10.2</version>
             <scope>compile</scope>
         </dependency>
+        <!-- Allure TestNG adapter -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.21.0</version>
+        </dependency>
+
+        <!-- Optional: For screenshots -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
     </dependencies>
 </project>
