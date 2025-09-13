@@ -10,11 +10,14 @@ import org.openqa.selenium.firefox.FirefoxDriver;
        public static WebDriver createDriver(String browser) {
 
             WebDriver driver;
+           boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
             switch (browser.toLowerCase()) {
                 case "chrome":
                     ChromeOptions options = new ChromeOptions();
-                    if(System.getenv("AGENT_NAME") != null) { // Running in pipeline
-                        options.addArguments("--headless");
+                    if (headless) {
+                        options.addArguments("--headless=new");
+                        options.addArguments("--no-sandbox");
+                        options.addArguments("--disable-dev-shm-usage");
                         options.addArguments("--disable-gpu");
                     }
                     driver = new ChromeDriver(options);
