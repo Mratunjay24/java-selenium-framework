@@ -1,19 +1,27 @@
 package testCases;
 import basePackage.BaseClass;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pagesLayer.AllProductPage;
 
 public class TestIntegrationProductDetails extends BaseClass {
 
     String firstProductName1;
     String text1;
+    AllProductPage allProductPage;
 
-
+    @BeforeMethod
+    public void setUpPage() {
+        WebDriver driver;
+        driver = setUp();
+        allProductPage = new AllProductPage(driver);
+    }
 
     @Test
     public void completeTest() {
-        TestAllProductDetailsFromUI uiTest = new TestAllProductDetailsFromUI();
-        text1 = uiTest.verifyText();
+        text1 = allProductPage.getTheText();
         System.out.println("Text from UI: " + text1);
         TestAllProductDetailsFromAPI apiTest = new TestAllProductDetailsFromAPI();
         apiTest.getRequest();

@@ -13,20 +13,19 @@ TestAllProductDetailsFromUI extends BaseClass {
     @BeforeMethod
     public void setUpPage() {
         WebDriver driver;
-         driver = super.setUp();
+         driver = setUp();
         allProductPage = new AllProductPage(driver);
     }
 
     @Test
 	public void verifyTitle() {
-
 		String titleName = allProductPage.getPageTitle();
         System.out.println("The title of the page is: " + titleName);
 	}
+
     @Test
-    public String verifyText() {
+    public void verifyText() {
         String text = allProductPage.getTheText();
         Assert.assertEquals(text, "Blue Top");
-        return text;
     }
 }

@@ -1,5 +1,4 @@
 package pagesLayer;
-
 import Utils.TestLocatorsReader;
 import org.base.PredefinedActions;
 import org.openqa.selenium.By;
@@ -19,8 +18,6 @@ public class AllProductPage {
         this.actions = new PredefinedActions(driver);
     }
 
-
-
     // Page Actions
     public String getPageTitle()
     {
@@ -29,13 +26,7 @@ public class AllProductPage {
 
     }
     public String getTheText() {
-        return actions.getElement(allProductsTitle,false).getText();
+        return actions.getElement(firstProductName,false).getText();
 
-    }
-    public String getFirstProductID() {
-        return actions.getElement(allProductsTID,false).getText();
-    }
-    public String getFirstProductName() {
-        return actions.getElement(firstProductName, false).getText();
     }
 }
