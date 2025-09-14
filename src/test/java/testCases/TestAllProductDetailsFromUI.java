@@ -21,7 +21,7 @@ TestAllProductDetailsFromUI extends BaseClass {
     @Test
 	public void verifyTitle() {
 		String titleName = allProductPage.getPageTitle();
-        Assert.assertEquals(titleName, "ALL PRODUCTS");
+        Assert.assertEquals(titleName, "ALL PRODUCT");
         System.out.println("The title of the page is: " + titleName);
 	}
 
