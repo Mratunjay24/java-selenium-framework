@@ -23,18 +23,20 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y maven wget unzip
+          sudo apt-get install -y maven wget unzip curl
           # Install Chrome for Selenium
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt install -y ./google-chrome-stable_current_amd64.deb
-          wget https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
+
+          # Download matching ChromeDriver automatically (new code)
+          DRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE")
+          wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/${DRIVER_VERSION}/linux64/chromedriver-linux64.zip -O chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/bin/chromedriver
+          sudo mv chromedriver-linux64/chromedriver /usr/bin/chromedriver
           sudo chmod +x /usr/bin/chromedriver
 
       - name: Run Tests (headless, ignore failures)
         run: mvn clean test -Dsurefire.suiteXmlFiles=testng.xml -Dheadless=true -Dallure.results.directory=target/allure-results || true
-
 
       - name: Upload Test Reports
         if: always()
