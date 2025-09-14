@@ -28,10 +28,15 @@ jobs:
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
-          # Download matching ChromeDriver automatically (new code)
-          DRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE")
-          wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/${DRIVER_VERSION}/linux64/chromedriver-linux64.zip -O chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
+          # Get installed Chrome version
+          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
+          # Get matching driver version for that major
+          DRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_${CHROME_VERSION%%.*}")
+          echo "Using ChromeDriver version: $DRIVER_VERSION"
+
+          # Download and install ChromeDriver
+          wget -q "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/${DRIVER_VERSION}/linux64/chromedriver-linux64.zip" -O chromedriver_linux64.zip
+          unzip -q chromedriver_linux64.zip
           sudo mv chromedriver-linux64/chromedriver /usr/bin/chromedriver
           sudo chmod +x /usr/bin/chromedriver
 
